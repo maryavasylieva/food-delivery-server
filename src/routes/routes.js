@@ -1,11 +1,12 @@
-const pizza = require("./product/product");
+const getUser = require("./users/get-user");
 const mainRoute = require("./main/main");
-const usersRoute = require("./users/user");
+const handleProductsRoute = require("./product/handle-product-route")
 
 
 const router = {
-  "/users": usersRoute,
-  "/products": pizza,
+  "/me": mainRoute,
+  "/users": getUser,
+  "/products": handleProductsRoute,
   default: mainRoute
 };
 
