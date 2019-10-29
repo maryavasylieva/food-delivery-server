@@ -1,13 +1,10 @@
-const getUser = require("./users/get-user");
-const mainRoute = require("./main/main");
-const handleProductsRoute = require("./product/handle-product-route")
+const products = require('./product-routes/product-routes');
+const user = require('./users-routes/user-routes');
+const order = require('./order-routes/order-routes');
 
+module.exports = {
+  products,
+  user,
+  order
 
-const router = {
-  "/me": mainRoute,
-  "/users": getUser,
-  "/products": handleProductsRoute,
-  default: mainRoute
-};
-
-module.exports = router;
+}

@@ -1,25 +1,23 @@
-const http = require("http");
-const url = require("url");
-const router = require("./routes/routes");
+const express = require("express");
+const bodyParser = require("body-parser");
 const morgan = require("morgan");
-const logger = morgan("combined");
-const getRouteHandler = require("./helpers/get-route-handler");
+const router = require("./routes/routes");
+const middleware = require("./middleware/middleware");
 
-const newServer = port => {
-  const server = http.createServer((request, response) => {
-    // Get route from the request
-    const parsedUrl = url.parse(request.url);
+const server = express();
 
-    // Get router function
-    const func = getRouteHandler(router, parsedUrl.pathname) || router.default;
+server
+  .use(bodyParser.urlencoded({ extended: false }))
+  .use(bodyParser.json())
+  .use(morgan("combined"))
+  .use(middleware.commonMiddleware)
+  .use("/products", router.products)
+  .use("/user", router.user)
+  .use("/order", router.order)
+  .use("/*", (req, res) => {
+    res.statusCode = 404;
+    res.json({ message: "Invalid url" });
+  })
+  .use(middleware.errorHandler);
 
-    logger(request, response, () => func(request, response));
-  });
-
-  server.listen(port, err => {
-    console.log(`server listening port ${port}`);
-  });
-};
-
-module.exports = newServer;
-
+module.exports = server;
