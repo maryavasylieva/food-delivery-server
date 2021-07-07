@@ -1,4 +1,3 @@
-// const qs = require("querystring");
 const fs = require("fs");
 const path = require("path");
 
@@ -25,16 +24,20 @@ const usersRoute = (request, response) => {
       body += chunk;
     });
 
-    request.on("end", () => {
-      const user = JSON.parse(body);
-      saveUser(user);
+    request.on("end", async () => {
+      try {
+        const user = JSON.parse(body);
+        await saveUser(user);
 
-      const responseSuccess = JSON.stringify({
-        status: "success",
-        user: user
-      });
-      response.writeHead(201, { "Content-Type": "application/json" });
-      response.end(responseSuccess);
+        const responseSuccess = JSON.stringify({
+          status: "success",
+          user: user
+        });
+        response.writeHead(201, { "Content-Type": "application/json" });
+        response.end(responseSuccess);
+      } catch (e) {
+        throw new Error("Something went wrong!");
+      }
     });
   }
 };

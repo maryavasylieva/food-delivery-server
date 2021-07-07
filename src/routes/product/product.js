@@ -14,9 +14,7 @@ module.exports = (request, response) => {
 
 
   fs.open(pizzaPath, "r", (err, fd) => {
-    if (err) {
-      console.log(err);
-    }
+    if (err) return;
 
     fs.readFile(fd, "utf8", (err, data) => {
       if (err) {
