@@ -19,8 +19,13 @@
   "homepage": "https://github.com/maryavasylieva/food-delivery-server-goit#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "connect-multiparty": "^2.2.0",
+    "debug": "^4.1.1",
+    "express": "^4.17.1",
     "morgan": "^1.9.1",
+    "multer": "^1.4.2",
     "nodemon": "^1.19.2",
-    "querystring": "^0.2.0"
+    "querystring": "^0.2.0",
+    "uuid": "^3.3.3"
   }
 }
